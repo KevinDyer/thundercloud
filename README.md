@@ -1,6 +1,8 @@
 #SiliconLabs Thunderboard Web Client
 ---
 
+## Helpful
+https://gist.github.com/hornej/bf56d8103a1c2d685579f3628949a442
 
 ##Introduction
 The web client is built with various web tools including:
