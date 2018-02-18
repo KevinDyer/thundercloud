@@ -17,7 +17,7 @@ class Thundercloud:
       url = 'thunderboard/{}/sessions'.format(deviceId)
       self.firebase.put(url, timestamp, guid)
 
-      
+
       d = {
             "startTime" : timestamp,
             "endTime" : timestamp,
@@ -33,16 +33,16 @@ class Thundercloud:
              "measurementUnits" : 0,
          }
 
-      url = 'sessions'
+      url = 'sessions/{}'.format(deviceId)
       self.firebase.put(url, guid, d)
 
       return guid
 
-   def putEnvironmentData(self, guid, data):
+   def putEnvironmentData(self, deviceId, guid, data):
 
       timestamp = int(time.time() * 1000)
-      url = 'sessions/{}/environment/data'.format(guid)
+      url = 'sessions/{}/{}/environment/data'.format(deviceId, guid)
       self.firebase.put(url, timestamp, data)
 
-      url = 'sessions/{}'.format(guid)
+      url = 'sessions/{}/{}'.format(deviceId, guid)
       self.firebase.put(url, 'endTime', timestamp)
