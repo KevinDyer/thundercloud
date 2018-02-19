@@ -9,7 +9,7 @@ let HeaderTitle = React.createClass({
   componentWillMount() {
     this.currentId = this.props.sessionId || '';
     if(this.props.sessionId){
-      let string = window.firebaseURL+'/sessions/'+this.props.sessionId+'/contactInfo';
+      let string =  `${window.firebaseURL}sessions/${this.props.deviceId}/${this.props.sessionId}/contactInfo`;
       this.bindAsArray(new Firebase( string ), 'contactInfo');
       this.setState({hasSetFirebaseRef:true});
     }
@@ -20,7 +20,7 @@ let HeaderTitle = React.createClass({
       if(this.state.hasSetFirebaseRef){
         this.unbind('contactInfo');
       }
-      let string = window.firebaseURL + '/sessions/'+nextProps.sessionId+'/contactInfo';
+      let string =  `${window.firebaseURL}sessions/${this.props.deviceId}/${nextProps.sessionId}/contactInfo`;
       this.bindAsArray(new Firebase( string ), 'contactInfo');
       this.setState({hasSetFirebaseRef:true});
     }

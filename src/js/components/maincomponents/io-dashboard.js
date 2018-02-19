@@ -21,8 +21,8 @@ let FluxyMixin = require('../../../../node_modules/alt/mixins/FluxyMixin');
   Firebase I/O url and binds that data to the key 'data'
   on the component state.
 
-  It uses the Fluxy Mixin to setup listeners for changes to the 
-  Streaming Store changes. This is for this component to 
+  It uses the Fluxy Mixin to setup listeners for changes to the
+  Streaming Store changes. This is for this component to
   be notified when the device has stopped streaming data.
 */
 
@@ -41,7 +41,7 @@ let IODashboard = React.createClass({
   },
   componentWillMount() {
     if(this.props.params && this.props.params.session){
-      let string = window.firebaseURL + '/sessions/'+this.props.params.session+'/io';
+      let string =  `${window.firebaseURL}sessions/${this.props.params.deviceId}/${this.props.params.session}/io`;
       let ref = new Firebase( string );
       this.setState({'ref':ref});
       this.bindAsArray(ref, 'data');
@@ -72,7 +72,7 @@ let IODashboard = React.createClass({
     color = color || "white";
     let diff = data.latestTime - data.earliestTimeAtCurrentPosition;
     let displayTime = this.formatTimeFromDiff(diff);
-    
+
     var top = 25;
     if(typeof data.currentPosition !== undefined){
       top = data.currentPosition == 1 ? 25 : 225;
@@ -138,11 +138,11 @@ let IODashboard = React.createClass({
     return (
       <PageView className="dashboard"
                 streamingKey="sw0"
-                sessionId={this.props.params.session} 
-                deviceId={this.props.params.deviceId} 
+                sessionId={this.props.params.session}
+                deviceId={this.props.params.deviceId}
                 data={this.state.data}
                 csvTitle={FireBaseTools.csvTitle('I/O Data',sw0)}
-                dataFormatter={FireBaseTools.formatDataForCSV} 
+                dataFormatter={FireBaseTools.formatDataForCSV}
                 headerTitle={header}>
         <div className="sections">
           <section className="side-by-side">

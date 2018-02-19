@@ -46,8 +46,8 @@ let medium_green = '#87a10d';
   Firebase Environment url and binds that data to the key 'data'
   on the component state.
 
-  It uses the Fluxy Mixin to setup listeners for changes to the 
-  Streaming Store changes. This is for this component to 
+  It uses the Fluxy Mixin to setup listeners for changes to the
+  Streaming Store changes. This is for this component to
   be notified when the device has stopped streaming data.
 */
 let EnvDashboard = React.createClass({
@@ -65,12 +65,12 @@ let EnvDashboard = React.createClass({
   },
   componentWillMount() {
     if(this.props.params && this.props.params.session){
-      let string = window.firebaseURL + 'sessions/'+this.props.params.session+'/environment';
+      let string =  `${window.firebaseURL}sessions/${this.props.params.deviceId}/${this.props.params.session}/environment`;
       let ref = new Firebase( string );
       this.setState({'ref':ref});
       this.bindAsArray(ref, 'data');
       if(this.props.params.session){
-        let unit = new Firebase( window.firebaseURL + 'sessions/'+this.props.params.session+'/temperatureUnits' );
+        let unit = new Firebase(`${window.firebaseURL}sessions/${this.props.params.deviceId}/${this.props.params.session}/temperatureUnits`);
         this.bindAsObject(unit, 'unit');
       }
     }

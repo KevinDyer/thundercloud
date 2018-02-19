@@ -22,8 +22,8 @@ let FluxyMixin = require('../../../../node_modules/alt/mixins/FluxyMixin');
   Firebase Motion url and binds that data to the key 'data'
   on the component state.
 
-  It uses the Fluxy Mixin to setup listeners for changes to the 
-  Streaming Store changes. This is for this component to 
+  It uses the Fluxy Mixin to setup listeners for changes to the
+  Streaming Store changes. This is for this component to
   be notified when the device has stopped streaming data.
 */
 let EnvDashboard = React.createClass({
@@ -41,12 +41,12 @@ let EnvDashboard = React.createClass({
   },
   componentWillMount() {
     if(this.props.params && this.props.params.session){
-      let string = window.firebaseURL+ 'sessions/'+this.props.params.session + '/motion';
+      let string =  `${window.firebaseURL}sessions/${this.props.params.deviceId}/${this.props.params.session}/motion`;
       let ref = new Firebase( string );
       this.setState({'ref':ref});
       this.bindAsArray(ref, 'data');
       if(this.props.params.session){
-        let unit = new Firebase( window.firebaseURL + 'sessions/'+this.props.params.session+'/measurementUnits' );
+        let unit = new Firebase(`${window.firebaseURL}sessions/${this.props.params.deviceId}/${this.props.params.session}/measurementUnits`);
         this.bindAsObject(unit, 'unit');
       }
     }
@@ -145,9 +145,9 @@ let EnvDashboard = React.createClass({
     let orientationLegend = (<Legend data={motionData} streaming={this.isStreaming} keys={['ox','oy','oz']} colors={['#0B8000','#87a10d','#caf200']} unit={'°'} alternateTitles={['x','y','z']}/>);
     let accLegend = (<Legend data={motionData} streaming={this.isStreaming} keys={['ax','ay','az']} colors={['#0B8000','#87a10d','#caf200']} unit={'g'} alternateTitles={['x','y','z']}/>);
     return (
-      <PageView className="dashboard" 
-                sessionId={this.props.params.session} 
-                deviceId={this.props.params.deviceId} 
+      <PageView className="dashboard"
+                sessionId={this.props.params.session}
+                deviceId={this.props.params.deviceId}
                 data={this.state.data}
                 nowStreamingData={motionData.speed}
                 csvTitle={FireBaseTools.csvTitle('Motion Data',motionData)}

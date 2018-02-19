@@ -14,7 +14,7 @@ let PreviousSession = React.createClass({
   mixins: [Navigation,ReactFire],
   componentWillMount() {
     if(this.props && this.props.guid){
-      let string =  window.firebaseURL +'sessions/'+this.props.guid;
+      let string =  `${window.firebaseURL}sessions/${this.props.deviceId}/${this.props.guid}`;
       let ref = new Firebase( string );
       this.bindAsObject(ref, 'session');
     }

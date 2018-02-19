@@ -14,7 +14,7 @@ let PreviousSessions = React.createClass({
   mixins: [Navigation,ReactFire],
   componentWillMount() {
     if(this.props.params && this.props.params.deviceId){
-      let string =  window.firebaseURL +'thunderboard/'+ this.props.params.deviceId + '/sessions/';
+      let string =  `${window.firebaseURL}thunderboard/${this.props.params.deviceId}/sessions/`;
       let ref = new Firebase( string ).limitToLast(10);
       this.bindAsArray(ref, 'sessions');
     }
@@ -64,16 +64,16 @@ let PreviousSessions = React.createClass({
         loading = (<h1 className="no-data">Unable to find any sessions for this device.</h1>);
       }
     }
-    let header = (<HeaderTitle h1={'Past Sessions'} 
-                title={this.props.params.deviceId} 
-                sessionId={contactInfoGUID} 
-                deviceId={this.props.params.deviceId} 
+    let header = (<HeaderTitle h1={'Past Sessions'}
+                title={this.props.params.deviceId}
+                sessionId={contactInfoGUID}
+                deviceId={this.props.params.deviceId}
                 color="#efefef"/>);
     return (
-      <PageView className="previous-sessions" 
+      <PageView className="previous-sessions"
                 headerTitle={header}
-                sessionId={contactInfoGUID} 
-                deviceId={this.props.params.deviceId} 
+                sessionId={contactInfoGUID}
+                deviceId={this.props.params.deviceId}
                 hideFooterElements={true}>
         <div className="sections">
           {renderedSessions}

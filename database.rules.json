@@ -12,10 +12,12 @@
     },
     "sessions":{
       ".write": true,
-      ".indexOn": ["startTime", "contactInfo/deviceName"],
-      "$session":{//2592000000 is 30 days
-        ".read": "data.child('startTime').val() > (now - 2992000000)",
-        ".write":  true
+      "$deviceId": {
+        ".indexOn": ["startTime", "contactInfo/deviceName"],
+        "$session":{
+          ".read": "data.child('startTime').val() > (now - 2992000000)",
+          ".write":  true
+        }
       }
     }
   }
