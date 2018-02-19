@@ -24,8 +24,6 @@
     return sendSensorUpdate(body);
   });
 
-  exports.updateSensor2 = functions.database.ref('/se')
-
   function sendSensorUpdate(body) {
     return new Promise((resolve, reject) => {
       const bodyBuffer = Buffer.from(JSON.stringify(body));
