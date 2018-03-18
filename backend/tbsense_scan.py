@@ -15,7 +15,10 @@ def getThunderboards():
             if desc == 'Complete Local Name':
                 if 'Thunder Sense #' in value:
                     deviceId = int(value.split('#')[-1])
-                    tbsense[deviceId] = Thunderboard(dev)
+                    try:
+                        tbsense[deviceId] = Thunderboard(dev)
+                    except Exception as ex:
+                        print('Failed to create Thunderboard for {}'.format(deviceId))
 
     return tbsense
 
@@ -69,6 +72,9 @@ def sensorLoop(fb, tb, devId):
                 elif key == 'pressure':
                     data['pressure'] = tb.readPressure()
                     text += 'Pressure:\t{}\n'.format(data['pressure'])
+
+                else:
+                    print('Unknown key({}) for {}'.format(key, devId))
 
         except:
             return
