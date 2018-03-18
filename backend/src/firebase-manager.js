@@ -2,7 +2,7 @@
   'use strict';
 
   const firebase = require('firebase');
-  const logger = require('./logger')
+  const logger = require('./logger');
 
   const config = {
     apiKey: 'AIzaSyDTB8FOhoqeHj-kvxfkTjSxOIuCBYA_uXU',

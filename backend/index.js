@@ -16,7 +16,7 @@
 
   const FirebaseManager = require('./src/firebase-manager');
   const firebaseManager = new FirebaseManager(config);
-  
+
   const sensors = new Map();
 
   noble.on('stateChange', (state) => {
