@@ -3,7 +3,7 @@
 
   const logger = require('./src/logger');
 
-  if (2 < process.argv.length) {
+  if (2 > process.argv.length) {
     logger.error('Please provide firebase config file!');
     process.exit(1);
     return;
@@ -12,12 +12,13 @@
 
   const REGEX_THUNDERBOARD = new RegExp('Thunder Sense #(\\d+)');
 
+  const noble = require('noble');
+
   const FirebaseManager = require('./src/firebase-manager');
   const firebaseManager = new FirebaseManager(config);
-
+  
   const sensors = new Map();
 
-  const noble = require('noble');
   noble.on('stateChange', (state) => {
     if ('unauthorized' === state) {
       logger.error('Not authorized to use Bluetooth LE');
@@ -41,12 +42,8 @@
   noble.on('scanStop', () => logger.debug('Scan stopped'));
 
   noble.on('discover', (peripheral) => {
-    const {
-      advertisement
-    } = peripheral;
-    const {
-      localName
-    } = advertisement;
+    const {advertisement} = peripheral;
+    const {localName} = advertisement;
     const match = REGEX_THUNDERBOARD.exec(localName);
     if (!match) {
       return;

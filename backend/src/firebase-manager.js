@@ -2,6 +2,7 @@
   'use strict';
 
   const firebase = require('firebase');
+  const logger = require('./logger')
 
   const config = {
     apiKey: 'AIzaSyDTB8FOhoqeHj-kvxfkTjSxOIuCBYA_uXU',
@@ -26,20 +27,20 @@
     _onConnectedValue(snapshot) {
       this._connected = snapshot.val();
       if (this._connected) {
-        console.log('Connected to firebase');
+        logger.debug('Connected to firebase');
         this._setup();
       } else {
-        console.log('Disconnected from firebase');
+        logger.debug('Disconnected from firebase');
       }
     }
 
     _onAuthStateChanged(user) {
       this._user = user;
       if (user) {
-        console.log('Hub is logged in');
+        logger.debug('Hub is logged in');
         this._setup();
       } else {
-        console.log('Hub is logged out');
+        logger.debug('Hub is logged out');
       }
     }
 
